@@ -1,0 +1,232 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-red: #dc2626;
+  --color-red-muted: #7f1d1d;
+  --color-white: #ffffff;
+  --color-muted: #6b7280;
+  --color-border: #1f1f1f;
+  --font-brand: 'FRC KAIZEN - ASTRON', sans-serif;
+  --font-display: 'HK Modular', sans-serif;
+  --font-body: 'TT Lakes Neue', sans-serif;
+
+  --background: var(--color-bg);
+  --foreground: var(--color-white);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-white);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-white);
+  --primary: var(--color-red);
+  --primary-foreground: var(--color-white);
+  --secondary: #181818;
+  --secondary-foreground: var(--color-white);
+  --muted: #161616;
+  --muted-foreground: #9ca3af;
+  --accent: #1a1a1a;
+  --accent-foreground: var(--color-white);
+  --destructive: var(--color-red);
+  --destructive-foreground: var(--color-white);
+  --border: var(--color-border);
+  --input: #1a1a1a;
+  --ring: var(--color-red);
+  --chart-1: var(--color-red);
+  --chart-2: #ef4444;
+  --chart-3: #991b1b;
+  --chart-4: #6b7280;
+  --chart-5: #f3f4f6;
+  --radius: 0.125rem;
+  --sidebar: var(--color-bg);
+  --sidebar-foreground: var(--color-white);
+  --sidebar-primary: var(--color-red);
+  --sidebar-primary-foreground: var(--color-white);
+  --sidebar-accent: #181818;
+  --sidebar-accent-foreground: var(--color-white);
+  --sidebar-border: var(--color-border);
+  --sidebar-ring: var(--color-red);
+}
+
+.dark {
+  --background: var(--color-bg);
+  --foreground: var(--color-white);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-white);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-white);
+  --primary: var(--color-red);
+  --primary-foreground: var(--color-white);
+  --secondary: #181818;
+  --secondary-foreground: var(--color-white);
+  --muted: #161616;
+  --muted-foreground: #9ca3af;
+  --accent: #1a1a1a;
+  --accent-foreground: var(--color-white);
+  --destructive: var(--color-red);
+  --destructive-foreground: var(--color-white);
+  --border: var(--color-border);
+  --input: #1a1a1a;
+  --ring: var(--color-red);
+  --chart-1: var(--color-red);
+  --chart-2: #ef4444;
+  --chart-3: #991b1b;
+  --chart-4: #6b7280;
+  --chart-5: #f3f4f6;
+  --sidebar: var(--color-bg);
+  --sidebar-foreground: var(--color-white);
+  --sidebar-primary: var(--color-red);
+  --sidebar-primary-foreground: var(--color-white);
+  --sidebar-accent: #181818;
+  --sidebar-accent-foreground: var(--color-white);
+  --sidebar-border: var(--color-border);
+  --sidebar-ring: var(--color-red);
+}
+
+@font-face {
+  font-family: 'FRC KAIZEN - ASTRON';
+  src: local('FRC KAIZEN - ASTRON'), url('/fonts/ItHillFRCKAIZEN-ASTRON.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HK Modular';
+  src: local('HK Modular'), url('/fonts/HKModular-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Lakes Neue';
+  src: local('TT Lakes Neue'), url('/fonts/TTLakesNeue-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Lakes Neue';
+  src: local('TT Lakes Neue Medium'), url('/fonts/TTLakesNeue-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Lakes Neue';
+  src: local('TT Lakes Neue Bold'), url('/fonts/TTLakesNeue-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-brand: 'FRC KAIZEN - ASTRON', sans-serif;
+  --font-body: 'TT Lakes Neue', sans-serif;
+  --font-sans: 'TT Lakes Neue', sans-serif;
+  --font-mono: 'TT Lakes Neue', sans-serif;
+  --font-display: 'HK Modular', sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    min-height: 100dvh;
+    position: relative;
+    isolation: isolate;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    z-index: 45;
+    mix-blend-mode: screen;
+  }
+}
+
+@layer utilities {
+  .section-eyebrow {
+    @apply inline-flex items-center border-l-2 border-red-600 pl-3 text-xs uppercase tracking-[0.32em] text-red-600;
+    font-family: var(--font-display);
+  }
+
+  .editorial-grid-45 {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(420%);
+  }
+}
