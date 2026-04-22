@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { PageTransition } from '@/components/page-transition'
-import { RedCursor } from '@/components/red-cursor'
+import { RedCursorDot } from '@/components/red-cursor-dot'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -32,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-[var(--color-bg)]" suppressHydrationWarning>
-      <body className="font-sans antialiased" suppressHydrationWarning>
-        <RedCursor />
+    <html lang="en" className="bg-[var(--color-bg)]">
+      <body className="font-sans antialiased">
+        <RedCursorDot />
         <PageTransition>{children}</PageTransition>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
