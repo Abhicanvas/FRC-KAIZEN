@@ -7,6 +7,8 @@ interface KaizenHeroProps {
   videoSrc?: string
 }
 
+const rpmFormatter = new Intl.NumberFormat("en-US")
+
 // Team Logo Component
 function TeamLogo() {
   return (
@@ -117,7 +119,7 @@ function AnimatedHeadline() {
           transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
         >
           <span
-            className={`font-display text-6xl md:text-7xl lg:text-[88px] leading-[0.85] ${line.color} block`}
+            className={`font-display text-5xl md:text-6xl lg:text-[72px] leading-[0.88] ${line.color} block`}
           >
             {line.text}
           </span>
@@ -187,7 +189,7 @@ function TelemetryBar() {
   }, [])
 
   const items = [
-    { label: "RPM", value: telemetry.rpm.toLocaleString() },
+    { label: "RPM", value: rpmFormatter.format(telemetry.rpm) },
     { label: "SPEED", value: `${telemetry.speed} km/h` },
     { label: "G-FORCE", value: `${telemetry.gForce}G` },
     { label: "THROTTLE", value: `${telemetry.throttle}%` },

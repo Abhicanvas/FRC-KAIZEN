@@ -4,16 +4,26 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --color-bg: #0a0a0a;
-  --color-surface: #111111;
-  --color-red: #dc2626;
-  --color-red-muted: #7f1d1d;
-  --color-white: #ffffff;
-  --color-muted: #6b7280;
-  --color-border: #1f1f1f;
-  --font-brand: 'FRC KAIZEN - ASTRON', sans-serif;
-  --font-display: 'HK Modular', sans-serif;
-  --font-body: 'TT Lakes Neue', sans-serif;
+  --red: #dc2626;
+  --red-glow: rgba(220, 38, 38, 0.25);
+  --red-dim: #7f1d1d;
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-raised: #181818;
+  --white: #ffffff;
+  --muted: #6b7280;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hot: rgba(220, 38, 38, 0.6);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-red: var(--red);
+  --color-red-muted: var(--red-dim);
+  --color-white: var(--white);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-brand: 'FRC KAIZEN - ASTRON', 'Bebas Neue', 'Orbitron', 'Bank Gothic', sans-serif;
+  --font-display: 'Bebas Neue', 'HK Modular', Impact, sans-serif;
+  --font-body: 'DM Sans', 'TT Lakes Neue', 'Segoe UI', sans-serif;
 
   --background: var(--color-bg);
   --foreground: var(--color-white);
@@ -23,23 +33,23 @@
   --popover-foreground: var(--color-white);
   --primary: var(--color-red);
   --primary-foreground: var(--color-white);
-  --secondary: #181818;
+  --secondary: var(--surface-raised);
   --secondary-foreground: var(--color-white);
   --muted: #161616;
   --muted-foreground: #9ca3af;
-  --accent: #1a1a1a;
+  --accent: var(--surface-raised);
   --accent-foreground: var(--color-white);
   --destructive: var(--color-red);
   --destructive-foreground: var(--color-white);
   --border: var(--color-border);
-  --input: #1a1a1a;
+  --input: var(--surface-raised);
   --ring: var(--color-red);
   --chart-1: var(--color-red);
   --chart-2: #ef4444;
   --chart-3: #991b1b;
   --chart-4: #6b7280;
   --chart-5: #f3f4f6;
-  --radius: 0.125rem;
+  --radius: 0;
   --sidebar: var(--color-bg);
   --sidebar-foreground: var(--color-white);
   --sidebar-primary: var(--color-red);
@@ -122,11 +132,11 @@
 }
 
 @theme inline {
-  --font-brand: 'FRC KAIZEN - ASTRON', sans-serif;
-  --font-body: 'TT Lakes Neue', sans-serif;
-  --font-sans: 'TT Lakes Neue', sans-serif;
-  --font-mono: 'TT Lakes Neue', sans-serif;
-  --font-display: 'HK Modular', sans-serif;
+  --font-brand: 'FRC KAIZEN - ASTRON', 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', 'TT Lakes Neue', sans-serif;
+  --font-sans: 'DM Sans', 'TT Lakes Neue', sans-serif;
+  --font-mono: 'DM Sans', 'TT Lakes Neue', sans-serif;
+  --font-display: 'Bebas Neue', 'HK Modular', sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -170,11 +180,20 @@
     @apply border-border outline-ring/50;
   }
 
+  ::selection {
+    background: rgba(220, 38, 38, 0.35);
+    color: #fff;
+  }
+
   body {
     @apply bg-background text-foreground font-sans;
     min-height: 100dvh;
     position: relative;
     isolation: isolate;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(circle at top, rgba(220, 38, 38, 0.08), transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%);
   }
 
   h1,
@@ -182,24 +201,14 @@
   h3,
   h4 {
     font-family: var(--font-display);
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    z-index: 45;
-    mix-blend-mode: screen;
+    letter-spacing: 0.04em;
   }
 }
 
 @layer utilities {
   .section-eyebrow {
-    @apply inline-flex items-center border-l-2 border-red-600 pl-3 text-xs uppercase tracking-[0.32em] text-red-600;
-    font-family: var(--font-display);
+    @apply inline-flex items-center border-l-2 border-red-600 pl-3 text-sm uppercase tracking-[0.25em] text-red-600;
+    font-family: var(--font-body);
   }
 
   .editorial-grid-45 {
@@ -210,6 +219,58 @@
       transparent 1px,
       transparent 24px
     );
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  .red-breath {
+    background: radial-gradient(ellipse 60% 40% at 15% 50%, rgba(220, 38, 38, 0.12), transparent);
+  }
+
+  .engineering-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .slash-field {
+    background-image: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 80px,
+      rgba(220, 38, 38, 0.04) 80px,
+      rgba(220, 38, 38, 0.04) 81px
+    );
+  }
+
+  .marquee-track {
+    width: max-content;
+    animation: marquee 14s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .scan-line {
+    animation: scan 4s linear infinite;
+  }
+
+  .separator-pulse {
+    animation: separatorPulse 1.5s ease-in-out infinite;
+  }
+
+  .footer-pulse {
+    animation: footerPulse 4s ease-in-out infinite;
   }
 }
 
@@ -228,5 +289,25 @@
   }
   to {
     transform: translateY(420%);
+  }
+}
+
+@keyframes separatorPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes footerPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
   }
 }
