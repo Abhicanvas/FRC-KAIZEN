@@ -1,0 +1,535 @@
+# FRC KAIZEN — About Us Section Design Prompt
+
+> **Scope:** This document covers only the **About Us** section rebuild — a split editorial layout inspired by the ADM Design & Build reference. It replaces the earlier asymmetric stat-column layout with a more polished, tab-driven, two-column design.
+
+---
+
+## Reference Layout
+
+```
+┌─────────────────────────────┬──┬──────────────────────────────┐
+│                             │  │                              │
+│   ABOUT US (eyebrow)        │  │   WHAT WE STAND FOR          │
+│                             │  │   (eyebrow, right-aligned)   │
+│   Large editorial headline  │  │                              │
+│   Line 1: "Built for"       │  │   ┌──────────────────────┐   │
+│   Line 2: "the Grid."       │  │   │ 01 | Engineering      │   │
+│   Line 3: "Engineered       │  │   │     Precision         │   │
+│            to Win."         │  │   └──────────────────────┘   │
+│                             │  │   ┌──────────────────────┐   │
+│   Body paragraph            │  │   │ 02 | Performance      │   │
+│   (2–3 lines, muted)        │  │   │     First             │   │
+│                             │  │   └──────────────────────┘   │
+│   ── ── ── ── ── ── ──      │  │   ┌──────────────────────┐   │
+│   Tab nav:                  │  │   │ 03 | Iteration &      │   │
+│   Who We Are / Our Car /    │  │   │     Growth            │   │
+│   Our Team / Our Story      │  │   └──────────────────────┘   │
+│                             │  │   ┌──────────────────────┐   │
+│   [Image / content block    │  │   │ 04 | Racing Spirit    │   │
+│    below tabs]              │  │   └──────────────────────┘   │
+│                             │  │                              │
+└─────────────────────────────┴──┴──────────────────────────────┘
+                              ↑
+                    Thin vertical rule
+                    + red pulsing dot at midpoint
+```
+
+---
+
+## Color & Typography System
+
+> These values are inherited from the global design system. Do not override.
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-bg` | `#0a0a0a` | Section background |
+| `--color-surface` | `#111111` | Card backgrounds |
+| `--color-red` | `#DC2626` | Eyebrows, borders, active states, numbers |
+| `--color-red-muted` | `#7f1d1d` | Hover glows, decorative accents |
+| `--color-white` | `#FFFFFF` | Headlines, active text |
+| `--color-muted` | `#6b7280` | Body copy, subtitles, inactive tabs |
+| `--color-border` | `#1f1f1f` | Card borders, divider rule |
+| `--font-brand` | `FRC KAIZEN - ASTRON` | Logotype only — **not used in this section** |
+| `--font-display` | `HK Modular` | Eyebrows, headlines, tab labels, card titles, numbers |
+| `--font-body` | `TT Lakes Neue` | Body copy, card subtitles, captions |
+
+---
+
+## Section-Level Layout Rules
+
+```tsx
+// Grid: 3 columns — left content | 1px divider | right cards
+<section className="
+  py-24 md:py-32
+  bg-[#0a0a0a]
+  relative overflow-hidden
+">
+  {/* Diagonal grid background */}
+  <div className="
+    absolute inset-0 pointer-events-none
+    [background-image:repeating-linear-gradient(45deg,#ffffff08_0px,#ffffff08_1px,transparent_1px,transparent_40px)]
+    opacity-30
+  "/>
+
+  <div className="
+    max-w-screen-xl mx-auto px-6
+    grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr]
+    gap-0
+  ">
+    <LeftColumn />
+    <VerticalDivider />
+    <RightColumn />
+  </div>
+</section>
+```
+
+- `rounded-none` on **every** card, image, and interactive element — no border radius anywhere
+- Red appears **only** as: border accents, eyebrow labels, active tab underlines, card number highlights, divider dot
+- No shadows, no gradients — flat surfaces only
+
+---
+
+## Left Column — `LeftColumn.tsx`
+
+### Eyebrow Label
+
+```tsx
+<motion.div
+  initial={{ x: -20, opacity: 0 }}
+  whileInView={{ x: 0, opacity: 1 }}
+  transition={{ duration: 0.5 }}
+  className="
+    border-l-2 border-red-600 pl-3
+    font-display text-xs uppercase tracking-[0.3em]
+    text-red-600
+    mb-8
+  "
+>
+  ABOUT US
+</motion.div>
+```
+
+### Animated Headline
+
+Three separate lines, each sliding up with staggered delay on scroll entry.
+
+**Content:**
+- Line 1: `"Built for"`
+- Line 2: `"the Grid."`
+- Line 3: `"Engineered to Win."`
+
+**Typography:** `font-display`, `text-5xl md:text-6xl lg:text-7xl`, `font-bold`, `text-white`, `leading-[1.05]`
+
+**Framer Motion:**
+
+```tsx
+const lineVariants = {
+  hidden: { y: 40, opacity: 0 },
+  visible: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.7,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+}
+
+// Usage
+{['Built for', 'the Grid.', 'Engineered to Win.'].map((line, i) => (
+  <motion.h2
+    key={line}
+    custom={i}
+    variants={lineVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+    className="block font-display font-bold text-white ..."
+  >
+    {line}
+  </motion.h2>
+))}
+```
+
+### Body Paragraph
+
+```tsx
+<motion.p
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.65, duration: 0.6 }}
+  viewport={{ once: true }}
+  className="font-body text-base text-[#9ca3af] leading-relaxed mt-6 max-w-md"
+>
+  FRC KAIZEN is a student-led Formula Student team from Kerala, India — driven by
+  performance, precision, and a relentless pursuit of improvement. Over forty members.
+  One car. Infinite iterations.
+</motion.p>
+```
+
+### Tab Navigation
+
+Four tabs with animated active indicator and `AnimatePresence` content transitions.
+
+**Tab labels:** `Who We Are` · `Our Car` · `Our Team` · `Our Story`
+
+**Typography:** `font-body text-sm uppercase tracking-wider`
+
+**Active state:** white text + red `2px` bottom underline  
+**Inactive state:** `text-[#6b7280]`, hover → white
+
+```tsx
+const tabs = ['Who We Are', 'Our Car', 'Our Team', 'Our Story']
+
+<div className="mt-10 border-b border-white/10">
+  <div className="flex gap-8">
+    {tabs.map(tab => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className={`
+          relative pb-3 font-body text-sm uppercase tracking-wider
+          transition-colors duration-200
+          ${activeTab === tab ? 'text-white' : 'text-[#6b7280] hover:text-white'}
+        `}
+      >
+        {tab}
+        {activeTab === tab && (
+          <motion.div
+            layoutId="tab-underline"
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600"
+          />
+        )}
+      </button>
+    ))}
+  </div>
+</div>
+```
+
+### Tab Content Area
+
+Below the tab strip. Each tab surfaces different content. Default tab (`Who We Are`) shows a team image placeholder.
+
+```tsx
+<AnimatePresence mode="wait">
+  <motion.div
+    key={activeTab}
+    variants={{
+      hidden:  { opacity: 0, x: 10 },
+      visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+      exit:    { opacity: 0, x: -10, transition: { duration: 0.2 } },
+    }}
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    className="mt-6"
+  >
+    {activeTab === 'Who We Are' && (
+      <div className="
+        aspect-video w-full
+        bg-[#1a1a1a] border border-white/10
+        rounded-none
+        flex items-center justify-center
+      ">
+        <span className="font-body text-xs text-[#6b7280] uppercase tracking-widest">
+          Team Image
+        </span>
+      </div>
+    )}
+    {/* Other tab content panels here */}
+  </motion.div>
+</AnimatePresence>
+```
+
+**Content per tab (placeholder copy):**
+
+| Tab | Content |
+|---|---|
+| Who We Are | Team photograph or group image |
+| Our Car | Car render or technical photograph |
+| Our Team | Department breakdown or team headshots grid |
+| Our Story | Timeline or founding paragraph |
+
+---
+
+## Vertical Divider — `VerticalDivider.tsx`
+
+A single pixel column between the two content areas. Hidden on mobile, visible on `lg+`.
+
+```tsx
+<div className="hidden lg:flex flex-col items-center relative">
+  {/* The 1px rule */}
+  <div className="w-px flex-1 bg-[#1f1f1f]" />
+
+  {/* Pulsing red dot at vertical midpoint */}
+  <motion.div
+    animate={{ scale: [1, 1.4, 1] }}
+    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+    className="
+      absolute top-1/2 -translate-y-1/2
+      w-3 h-3 rounded-full bg-red-600
+    "
+  />
+</div>
+```
+
+---
+
+## Right Column — `RightColumn.tsx`
+
+### Eyebrow Label
+
+```tsx
+<div className="
+  font-display text-xs uppercase tracking-[0.3em]
+  text-red-600
+  text-right mb-6
+">
+  WHAT WE STAND FOR
+</div>
+```
+
+### Value Card Stack
+
+Four stacked full-width cards with staggered entry animation.
+
+**Card data:**
+
+| # | Title | Subtitle |
+|---|---|---|
+| 01 | Engineering Precision | Every system designed with intent |
+| 02 | Performance First | Data-driven decisions, always |
+| 03 | Iteration & Growth | Kaizen — constant refinement |
+| 04 | Racing Spirit | Built for the grid, ready to compete |
+
+**Container (Framer Motion stagger):**
+
+```tsx
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+}
+
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  className="flex flex-col gap-0"
+>
+  {cards.map(card => <ValueCard key={card.id} {...card} />)}
+</motion.div>
+```
+
+**Individual Card:**
+
+```tsx
+const cardVariants = {
+  hidden:  { x: 60, opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+}
+
+function ValueCard({ id, title, subtitle }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <motion.div
+      variants={cardVariants}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`
+        group flex items-center justify-between
+        px-6 h-[88px]
+        bg-[#111111]
+        border border-[#1f1f1f] border-l-2
+        transition-all duration-300 ease-out
+        cursor-default
+        ${hovered
+          ? 'border-red-600 translate-x-1'
+          : 'border-l-red-600'
+        }
+      `}
+    >
+      {/* Left: number + divider + text */}
+      <div className="flex items-center gap-5">
+        {/* Number badge */}
+        <span className={`
+          font-display text-3xl leading-none
+          transition-all duration-300
+          ${hovered ? 'text-red-600 opacity-100' : 'text-red-600 opacity-30'}
+        `}>
+          {id}
+        </span>
+
+        {/* Vertical separator */}
+        <div className="w-px h-8 bg-white/10" />
+
+        {/* Title + subtitle */}
+        <div>
+          <p className="font-display text-sm uppercase tracking-wide text-white leading-tight">
+            {title}
+          </p>
+          <p className="font-body text-xs text-[#6b7280] mt-0.5">
+            {subtitle}
+          </p>
+        </div>
+      </div>
+
+      {/* Right: arrow icon (appears on hover) */}
+      <motion.span
+        animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -6 }}
+        transition={{ duration: 0.2 }}
+        className="text-red-600"
+      >
+        <ChevronRight size={16} />
+      </motion.span>
+    </motion.div>
+  )
+}
+```
+
+---
+
+## Component File Structure
+
+```
+components/
+└── sections/
+    └── AboutSection.tsx          ← Root section component
+        ├── LeftColumn.tsx
+        │   ├── EyebrowLabel      ← Inline, not extracted
+        │   ├── AnimatedHeadline  ← Inline with lineVariants
+        │   ├── BodyParagraph     ← Inline
+        │   └── TabNav.tsx        ← Extracted (has state)
+        │       ├── TabList
+        │       └── TabContent    ← AnimatePresence
+        ├── VerticalDivider.tsx   ← Extracted (has animation)
+        └── RightColumn.tsx
+            ├── EyebrowLabel      ← Inline
+            └── ValueCardStack.tsx
+                └── ValueCard.tsx ← Extracted (has hover state)
+```
+
+---
+
+## Full Framer Motion Variants Reference
+
+```typescript
+// — Eyebrow / general fade-slide
+const fadeSlideLeft = {
+  hidden:  { x: -20, opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.5 } },
+}
+
+// — Headline lines (custom index for delay)
+const lineVariants = {
+  hidden: { y: 40, opacity: 0 },
+  visible: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.7,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+}
+
+// — Body / utility fade-up
+const fadeUp = {
+  hidden:  { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
+}
+
+// — Card container (drives stagger)
+const cardContainerVariants = {
+  hidden:   {},
+  visible:  { transition: { staggerChildren: 0.12 } },
+}
+
+// — Individual card slide-from-right
+const cardVariants = {
+  hidden:   { x: 60, opacity: 0 },
+  visible:  { x: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+}
+
+// — Tab content swap (AnimatePresence)
+const tabContentVariants = {
+  hidden:  { opacity: 0, x: 10 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+  exit:    { opacity: 0, x: -10, transition: { duration: 0.2 } },
+}
+
+// — Divider dot pulse
+const dotPulse = {
+  animate: { scale: [1, 1.4, 1] },
+  transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
+}
+```
+
+---
+
+## Responsive Behaviour
+
+| Breakpoint | Layout |
+|---|---|
+| Mobile (`< lg`) | Single column, vertical stack — Left column first, then Right column. Divider hidden. |
+| Desktop (`lg+`) | Three-column grid: `[1fr] [1px] [1fr]`. Divider visible. |
+
+```tsx
+// Grid classes
+"grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] gap-0"
+
+// Divider visibility
+"hidden lg:flex"
+
+// Card x-offset — smaller on mobile
+// Use responsive Framer values or just `x: 20` on mobile
+```
+
+---
+
+## shadcn/ui Components Used
+
+| Component | Usage in this section |
+|---|---|
+| None directly | All UI is custom — cards and tabs are hand-built to avoid shadcn defaults clashing with the motorsport aesthetic |
+
+> **Note:** shadcn's `Tabs` component can be used as the base for `TabNav` but **must be restyled completely** — remove all default padding, ring, and background treatments. Override via `className` on `TabsList`, `TabsTrigger`, and `TabsContent`.
+
+---
+
+## Design Checklist
+
+Before committing the section, verify:
+
+- [ ] All text elements use exactly one of: `font-brand`, `font-display`, `font-body`
+- [ ] No `border-radius` other than `rounded-none` on any card or image
+- [ ] Cards enter from `x: 60` (right side), not from below
+- [ ] Divider dot pulses on loop — not a static circle
+- [ ] Tab underline uses `layoutId="tab-underline"` for smooth slide
+- [ ] `useInView` with `once: true` on all scroll animations
+- [ ] Section background is `#0a0a0a`, not `black` or `bg-black`
+- [ ] Card number opacity is `30%` at rest → `100%` on hover
+- [ ] ChevronRight icon animates in on hover (`opacity 0 → 1`, `x: -6 → 0`)
+- [ ] Body copy uses `font-body`, not `font-display`
+- [ ] Red is used only for: eyebrows, number highlights, active tab, card left border, divider dot
+
+---
+
+## What NOT to Build Here
+
+This prompt is scoped to the **About Us section only**. The following are covered in the main project prompt and should not be duplicated:
+
+- Hero section
+- What We Do (marquee ticker + 2×2 card grid)
+- Kaizen Philosophy (kanji background + cinematic layout)
+- Sponsors Preview
+- Contact section
+- Footer
+- Sponsorship page (`/sponsorship`)
+
+---
+
+*Last updated: FRC KAIZEN Website v2 — About Section Redesign*

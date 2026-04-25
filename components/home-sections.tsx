@@ -1,10 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { AnimatePresence, animate, motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Instagram, Linkedin, Mail } from 'lucide-react'
-import { type FormEvent, useEffect, useRef, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
+import { AboutSection } from '@/components/sections/AboutSection'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -57,15 +58,6 @@ const contactItems = [
   },
 ]
 
-const headingContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-}
-
 const headingWord = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -79,32 +71,7 @@ const headingWord = {
 }
 
 export function HomeSections() {
-  const aboutRef = useRef<HTMLElement | null>(null)
-  const aboutInView = useInView(aboutRef, { once: true, amount: 0.25 })
-  const [memberCount, setMemberCount] = useState(0)
-  const [carCount, setCarCount] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  useEffect(() => {
-    if (!aboutInView) {
-      return
-    }
-
-    const memberAnimation = animate(0, 40, {
-      duration: 1.4,
-      onUpdate: (value) => setMemberCount(Math.round(value)),
-    })
-
-    const carAnimation = animate(0, 1, {
-      duration: 0.9,
-      onUpdate: (value) => setCarCount(Math.round(value)),
-    })
-
-    return () => {
-      memberAnimation.stop()
-      carAnimation.stop()
-    }
-  }, [aboutInView])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -113,66 +80,7 @@ export function HomeSections() {
 
   return (
     <>
-      <motion.section
-        ref={aboutRef}
-        id="about"
-        className="relative overflow-hidden border-y border-white/5 py-24"
-        initial={{ opacity: 0, y: 40 }}
-        animate={aboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="editorial-grid-45 pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="flex items-end gap-6">
-            <span className="font-display text-[clamp(6rem,13vw,12rem)] leading-none text-white/90">40+</span>
-            <span className="[writing-mode:vertical-rl] text-[10px] uppercase tracking-[0.35em] text-red-600/80">
-              Team Strength
-            </span>
-          </div>
-
-          <div className="space-y-7">
-            <p className="section-eyebrow">ABOUT US</p>
-            <motion.h2
-              className="font-display text-4xl uppercase leading-[0.95] tracking-wide text-white md:text-6xl"
-              variants={headingContainer}
-              initial="hidden"
-              animate={aboutInView ? 'visible' : 'hidden'}
-            >
-              {"FRC KAIZEN is a student-led Formula Student team driven by performance and execution, bringing together an interdisciplinary team of over forty members."
-                .split(' ')
-                .map((word, index) => (
-                  <motion.span key={`${word}-${index}`} className="mr-3 inline-block" variants={headingWord}>
-                    {word}
-                  </motion.span>
-                ))}
-            </motion.h2>
-            <div className="space-y-4 text-base leading-relaxed text-zinc-300">
-              <p>
-                From concept to validation, every system is engineered, built, and refined with intent. Design,
-                manufacturing, and testing operate as a continuous cycle—guided by data and iteration.
-              </p>
-              <p>
-                We compete on national and international circuits, focused on delivering performance on and off the
-                track.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-8 pt-2">
-              <div>
-                <p className="font-display text-4xl text-white">{memberCount}+</p>
-                <p className="font-body text-xs uppercase tracking-[0.24em] text-zinc-500">Members</p>
-              </div>
-              <div>
-                <p className="font-display text-4xl text-white">{carCount.toString().padStart(2, '0')}</p>
-                <p className="font-body text-xs uppercase tracking-[0.24em] text-zinc-500">Active Car</p>
-              </div>
-              <div>
-                <p className="font-display text-4xl text-white">∞</p>
-                <p className="font-body text-xs uppercase tracking-[0.24em] text-zinc-500">Iterations</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
+      <AboutSection />
 
       <section className="py-24">
         <div className="mb-16 overflow-hidden border-y border-red-600/40 bg-black">
