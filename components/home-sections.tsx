@@ -82,7 +82,7 @@ export function HomeSections() {
     <>
       <AboutSection />
 
-      <section className="py-24">
+      <section className="overflow-hidden py-20 sm:py-24">
         <div className="mb-16 overflow-hidden border-y border-red-600/40 bg-black">
           <div className="flex w-max animate-[marquee_12s_linear_infinite] py-4 will-change-transform">
             {[0, 1].map((loop) => (
@@ -90,7 +90,7 @@ export function HomeSections() {
                 {tickerItems.map((item, index) => (
                   <span
                     key={`${loop}-${item}-${index}`}
-                    className="font-display px-8 text-5xl tracking-wide text-red-600 md:text-6xl"
+                    className="font-display px-6 text-4xl tracking-wide text-red-600 sm:px-8 sm:text-5xl md:text-6xl"
                   >
                     {item} <span className="text-red-500">◆</span>
                   </span>
@@ -100,7 +100,7 @@ export function HomeSections() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mb-8 flex justify-start">
             <p className="section-eyebrow">WHAT WE DO</p>
           </div>
@@ -140,30 +140,32 @@ export function HomeSections() {
                 whileHover={{ scale: 1.02 }}
                 className="group"
               >
-                  <Card className="h-full rounded-none border border-white/10 border-t-red-600 bg-[#111111] p-6 transition-all duration-300 group-hover:border-red-600/80 group-hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]">
-                    <p className="font-display text-5xl text-red-900">{card.number}</p>
-                    <h3 className="font-display text-4xl uppercase text-white transition-colors group-hover:text-white">{card.title}</h3>
-                    <Badge
-                      variant="outline"
-                      className="mt-4 rounded-none border-red-600/40 bg-red-950/20 font-body text-sm text-zinc-200"
-                    >
-                      {card.detail}
-                    </Badge>
-                  </Card>
-                </motion.div>
+                <Card className="h-full rounded-none border border-white/10 border-t-red-600 bg-[#111111] p-5 transition-all duration-300 group-hover:border-red-600/80 group-hover:shadow-[0_0_20px_rgba(220,38,38,0.2)] sm:p-6">
+                  <p className="font-display text-4xl text-red-900 sm:text-5xl">{card.number}</p>
+                  <h3 className="font-display text-3xl uppercase text-white transition-colors group-hover:text-white sm:text-4xl">
+                    {card.title}
+                  </h3>
+                  <Badge
+                    variant="outline"
+                    className="mt-4 rounded-none border-red-600/40 bg-red-950/20 font-body text-sm text-zinc-200"
+                  >
+                    {card.detail}
+                  </Badge>
+                </Card>
+              </motion.div>
               ))}
             </motion.div>
         </div>
       </section>
 
-      <section className="relative isolate flex min-h-[88vh] items-center justify-center overflow-hidden px-6 py-28 text-center">
+      <section className="relative isolate flex min-h-[72vh] items-center justify-center overflow-hidden px-4 py-24 text-center sm:px-6 sm:py-28">
         <div className="pointer-events-none absolute left-[-10%] top-1/2 h-px w-[140%] -rotate-12 bg-red-600/20" />
-        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[20vw] leading-none text-white/[0.03]">
+        <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[32vw] leading-none text-white/[0.03] sm:text-[20vw]">
           改善
         </span>
 
         <motion.div
-          className="relative z-10 mx-auto max-w-4xl space-y-7"
+          className="relative z-10 mx-auto max-w-4xl space-y-6 sm:space-y-7"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -179,41 +181,41 @@ export function HomeSections() {
           <motion.p variants={headingWord} className="section-eyebrow">
             KAIZEN
           </motion.p>
-          <motion.h2 className="font-display text-5xl uppercase leading-[0.9] text-white md:text-7xl">
+          <motion.h2 className="font-display text-4xl uppercase leading-[0.92] text-white sm:text-5xl md:text-7xl">
             {'Constant refinement. Continuous evolution.'.split(' ').map((word, index) => (
               <motion.span key={`${word}-${index}`} variants={headingWord} className="mr-3 inline-block">
                 {word}
               </motion.span>
             ))}
           </motion.h2>
-          <motion.p variants={headingWord} className="mx-auto max-w-2xl text-base leading-relaxed text-zinc-300 md:text-lg">
+          <motion.p variants={headingWord} className="mx-auto max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-base md:text-lg">
             Every system is developed through iteration, every detail improved with intent. From design to track,
             progress is built step by step.
           </motion.p>
-          <motion.p variants={headingWord} className="text-lg italic text-red-500 md:text-xl">
+          <motion.p variants={headingWord} className="text-base italic text-red-500 md:text-xl">
             Performance is not achieved — it is refined.
           </motion.p>
         </motion.div>
       </section>
 
       <motion.section
-        className="py-24"
+        className="py-20 sm:py-24"
         initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="mx-auto max-w-5xl px-6 text-center">
+        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
           <div className="mb-6 flex justify-center">
             <p className="section-eyebrow">OUR PARTNERS</p>
           </div>
-          <h2 className="font-display text-5xl uppercase text-white md:text-7xl">Powered by Partnership</h2>
+          <h2 className="font-display text-4xl uppercase text-white sm:text-5xl md:text-7xl">Powered by Partnership</h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-zinc-300">
             FRC KAIZEN is driven by performance—and powered by partnership. We work with organizations that value
             engineering, innovation, and visibility. From car livery to digital platforms, we ensure meaningful brand
             presence at national and international Formula Student competitions.
           </p>
-          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
@@ -235,14 +237,14 @@ export function HomeSections() {
         </div>
       </motion.section>
 
-      <section id="contact" className="mx-auto grid max-w-6xl gap-10 px-6 py-24 lg:grid-cols-2">
+      <section id="contact" className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-2">
         <div>
           <p className="section-eyebrow">ESTABLISH CONTACT</p>
           <div className="mt-8 space-y-5">
             {contactItems.map((item) => {
               const Icon = item.icon
               return (
-                <Link key={item.label} href={item.href} className="group flex items-start gap-4">
+                <Link key={item.label} href={item.href} className="group flex items-start gap-4 rounded-none py-1">
                   <span className="inline-flex size-9 items-center justify-center rounded-full border border-red-600/60 bg-red-600/10 text-red-500">
                     <Icon className="size-4" />
                   </span>
@@ -258,7 +260,7 @@ export function HomeSections() {
           </div>
         </div>
 
-        <Card className="rounded-none border border-white/10 bg-[#111111] p-8">
+        <Card className="rounded-none border border-white/10 bg-[#111111] p-5 sm:p-8">
           <AnimatePresence mode="wait" initial={false}>
             {!isSubmitted ? (
               <motion.form

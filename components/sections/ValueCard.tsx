@@ -27,27 +27,27 @@ export function ValueCard({ id, title, subtitle }: ValueCardProps) {
       variants={cardVariants}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`group flex h-[88px] cursor-default items-center justify-between border border-l-2 bg-[#111111] px-6 transition-all duration-300 ease-out ${
+      className={`group flex min-h-[88px] cursor-default flex-col items-start justify-between gap-4 border border-l-2 bg-[#111111] px-5 py-4 transition-all duration-300 ease-out sm:flex-row sm:items-center sm:px-6 sm:py-0 ${
         hovered ? 'translate-x-1 border-red-600' : 'border-[#1f1f1f] border-l-red-600'
       }`}
     >
-      <div className="flex items-center gap-5">
+      <div className="flex items-start gap-4 sm:items-center sm:gap-5">
         <span
-          className={`font-display text-3xl leading-none text-red-600 transition-all duration-300 ${hovered ? 'opacity-100' : 'opacity-30'}`}
+          className={`font-display text-2xl leading-none text-red-600 transition-all duration-300 sm:text-3xl ${hovered ? 'opacity-100' : 'opacity-30'}`}
         >
           {id}
         </span>
-        <div className="h-8 w-px bg-white/10" />
+        <div className="h-8 w-px bg-white/10 sm:block" />
         <div>
           <p className="font-display text-sm leading-tight tracking-wide text-white uppercase">{title}</p>
-          <p className="mt-0.5 font-body text-xs text-[#6b7280]">{subtitle}</p>
+          <p className="mt-1 max-w-[28ch] font-body text-xs leading-relaxed text-[#6b7280]">{subtitle}</p>
         </div>
       </div>
 
       <motion.span
         animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -6 }}
         transition={{ duration: 0.2 }}
-        className="text-red-600"
+        className="self-end text-red-600 sm:self-auto"
       >
         <ChevronRight size={16} />
       </motion.span>

@@ -119,7 +119,7 @@ export function SponsorshipSections() {
           </Badge>
           <div className="mt-6 space-y-1">
             <motion.h1
-              className="font-display text-6xl uppercase leading-none text-white md:text-8xl lg:text-9xl"
+              className="font-display text-4xl uppercase leading-none text-white sm:text-5xl md:text-7xl lg:text-9xl"
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 0.1 }}
@@ -127,7 +127,7 @@ export function SponsorshipSections() {
               Powering Performance.
             </motion.h1>
             <motion.h1
-              className="font-display text-6xl uppercase leading-none text-white md:text-8xl lg:text-9xl"
+              className="font-display text-4xl uppercase leading-none text-white sm:text-5xl md:text-7xl lg:text-9xl"
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 0.4 }}
@@ -136,7 +136,7 @@ export function SponsorshipSections() {
             </motion.h1>
           </div>
           <motion.p
-            className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-300 md:text-lg"
+            className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-base md:text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.45, delay: 0.7 }}
@@ -147,7 +147,7 @@ export function SponsorshipSections() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-6 py-24 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -162,7 +162,7 @@ export function SponsorshipSections() {
           </p>
         </motion.div>
         <motion.blockquote
-          className="border-l-4 border-red-600 pl-6 text-3xl leading-tight text-white font-display md:text-5xl"
+          className="border-l-4 border-red-600 pl-5 text-2xl font-display leading-tight text-white sm:pl-6 sm:text-3xl md:text-5xl"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
@@ -172,7 +172,7 @@ export function SponsorshipSections() {
         </motion.blockquote>
       </section>
 
-      <section className="mx-auto max-w-6xl space-y-6 px-6 py-4">
+      <section className="mx-auto max-w-6xl space-y-6 px-4 py-4 sm:px-6">
         <p className="section-eyebrow">PARTNERSHIP TIERS</p>
 
         {tiers.map((tier) => (
@@ -193,7 +193,7 @@ export function SponsorshipSections() {
                   <Badge className={`rounded-none px-3 py-1 text-xs uppercase tracking-[0.24em] ${tier.badgeClassName}`}>
                     {tier.badge}
                   </Badge>
-                  <h3 className="mt-4 font-display text-5xl uppercase text-white">{tier.title}</h3>
+                  <h3 className="mt-4 font-display text-4xl uppercase text-white sm:text-5xl">{tier.title}</h3>
                 </div>
 
                 <div className="p-6">
@@ -214,17 +214,17 @@ export function SponsorshipSections() {
       </section>
 
       <motion.section
-        className="relative mt-24 overflow-hidden bg-red-600 px-6 py-20 text-black"
+        className="relative mt-24 overflow-hidden bg-red-600 px-4 py-16 text-black sm:px-6 sm:py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={ctaLetterContainer}
       >
-        <span className="pointer-events-none absolute right-6 top-5 text-7xl opacity-35 animate-spin [animation-duration:20s]">
+        <span className="pointer-events-none absolute right-4 top-4 animate-spin text-5xl opacity-35 [animation-duration:20s] sm:right-6 sm:top-5 sm:text-7xl">
           🏁
         </span>
         <div className="mx-auto max-w-6xl">
-          <motion.h2 className="max-w-5xl font-display text-5xl uppercase leading-[0.9] md:text-7xl">
+          <motion.h2 className="max-w-5xl font-display text-4xl uppercase leading-[0.92] sm:text-5xl md:text-7xl">
             {ctaHeadline.split('').map((letter, index) => (
               <motion.span key={`${letter}-${index}`} variants={ctaLetter} className="inline-block">
                 {letter === ' ' ? '\u00A0' : letter}

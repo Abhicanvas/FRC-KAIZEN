@@ -175,6 +175,7 @@
     min-height: 100dvh;
     position: relative;
     isolation: isolate;
+    overflow-x: hidden;
   }
 
   h1,
@@ -193,6 +194,12 @@
     opacity: 0.04;
     z-index: 45;
     mix-blend-mode: screen;
+  }
+
+  @media (max-width: 767px) {
+    body::before {
+      opacity: 0.02;
+    }
   }
 }
 

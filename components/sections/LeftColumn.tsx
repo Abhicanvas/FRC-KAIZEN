@@ -41,7 +41,7 @@ export function LeftColumn() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="block font-display text-5xl leading-[1.05] font-bold text-white md:text-6xl lg:text-7xl"
+            className="block font-display text-4xl font-bold leading-[1.03] text-white sm:text-5xl md:text-6xl lg:text-7xl"
           >
             {line}
           </motion.h2>
@@ -53,7 +53,7 @@ export function LeftColumn() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.65, duration: 0.6 }}
         viewport={{ once: true }}
-        className="mt-6 max-w-md font-body text-base leading-relaxed text-[#9ca3af]"
+        className="mt-6 max-w-md font-body text-[0.98rem] leading-relaxed text-[#9ca3af] sm:text-base"
       >
         FRC KAIZEN is a student-led Formula Student team from Kerala, India - driven by performance, precision, and a
         relentless pursuit of improvement. Over forty members. One car. Infinite iterations.

@@ -18,13 +18,13 @@ export function SiteFooter() {
   return (
     <footer className="mt-24 bg-[#060606] text-white">
       <div className="h-px w-full bg-red-600" />
-      <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-3 md:items-center">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 text-center md:grid-cols-3 md:items-center md:px-6 md:text-left">
         <div>
-          <p className="font-brand text-5xl uppercase tracking-wide">FRC KAIZEN</p>
+          <p className="font-brand text-4xl uppercase tracking-wide sm:text-5xl">FRC KAIZEN</p>
           <p className="mt-1 font-body text-sm text-zinc-500">© 2025</p>
         </div>
 
-        <nav className="flex flex-wrap items-center justify-start gap-4 font-body text-sm uppercase tracking-[0.2em] text-zinc-400 md:justify-center">
+        <nav className="flex flex-wrap items-center justify-center gap-4 font-body text-sm uppercase tracking-[0.2em] text-zinc-400 md:justify-center">
           {navItems.map((item) => (
             <Link key={item.label} href={item.href} className="transition-colors hover:text-red-500">
               {item.label}
@@ -32,7 +32,7 @@ export function SiteFooter() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-start gap-4 md:justify-end">
+        <div className="flex items-center justify-center gap-4 md:justify-end">
           {socialItems.map((item) => {
             const Icon = item.icon
             return (

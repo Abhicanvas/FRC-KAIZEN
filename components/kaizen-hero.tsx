@@ -117,7 +117,7 @@ function AnimatedHeadline() {
           transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
         >
           <span
-            className={`font-display text-6xl md:text-7xl lg:text-[88px] leading-[0.85] ${line.color} block`}
+            className={`font-display text-5xl leading-[0.88] ${line.color} block sm:text-6xl md:text-7xl lg:text-[88px]`}
           >
             {line.text}
           </span>
@@ -199,14 +199,14 @@ function TelemetryBar() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 2 }}
-      className="absolute bottom-0 left-0 right-0 h-11 bg-black/90 border-t border-[rgba(232,0,13,0.25)] z-20"
+      className="absolute bottom-0 left-0 right-0 z-20 border-t border-[rgba(232,0,13,0.25)] bg-black/90"
     >
-      <div className="h-full flex items-center justify-between overflow-x-auto">
+      <div className="grid grid-cols-2 sm:flex sm:h-11 sm:items-center sm:justify-between">
         {items.map((item, index) => (
           <div
             key={item.label}
-            className={`flex-1 flex flex-col items-center justify-center px-4 h-full ${
-              index < items.length - 1 ? "border-r border-white/10" : ""
+            className={`flex min-h-11 flex-col items-center justify-center px-3 py-2 sm:flex-1 sm:px-4 sm:py-0 ${
+              index < items.length - 1 ? "sm:border-r sm:border-white/10" : ""
             }`}
           >
             <span className="font-body text-[9px] text-white/35 tracking-wider">
@@ -284,8 +284,8 @@ export default function KaizenHero({ videoSrc = "/kaizen-car.mp4" }: KaizenHeroP
       />
 
       {/* Large "14" watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-[1]">
-        <span className="font-display text-[300px] md:text-[450px] text-white/[0.02] select-none">
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none z-[1]">
+        <span className="font-display text-[180px] text-white/[0.02] select-none sm:text-[300px] md:text-[450px]">
           14
         </span>
       </div>
@@ -376,26 +376,26 @@ export default function KaizenHero({ videoSrc = "/kaizen-car.mp4" }: KaizenHeroP
         </div>
 
         {/* Mobile layout */}
-        <div className="lg:hidden flex h-full flex-col items-center justify-center gap-6 px-6 py-10 sm:py-12">
+        <div className="lg:hidden flex h-full flex-col items-center justify-center gap-5 px-4 py-10 sm:px-6 sm:py-12">
           {/* Logo + Season */}
           <div className="flex flex-col items-center text-center">
             <TeamLogo />
           </div>
 
           {/* Headline */}
-          <div className="text-center">
+          <div className="max-w-sm text-center">
             <AnimatedHeadline />
           </div>
 
           {/* Stats row - horizontal on mobile */}
-          <div className="flex items-center justify-center gap-6 w-full">
+          <div className="grid w-full max-w-sm grid-cols-3 gap-3 text-center">
             {[
               { value: "#14", label: "Car" },
               { value: "4.2G", label: "G-Force" },
               { value: "220+", label: "km/h" },
             ].map((stat, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <span className="font-display text-2xl text-white">
+              <div key={index} className="flex flex-col items-center gap-0.5">
+                <span className="font-display text-2xl text-white sm:text-3xl">
                   {stat.value}
                 </span>
                 <span className="font-body text-[10px] text-white/40 uppercase">

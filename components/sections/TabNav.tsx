@@ -18,13 +18,13 @@ export function TabNav() {
   return (
     <div className="mt-10">
       <div className="border-b border-white/10">
-        <div className="flex flex-wrap gap-x-8 gap-y-3">
+        <div className="flex gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:gap-x-8 sm:gap-y-3">
           {tabs.map((tab) => (
             <button
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`relative pb-3 font-body text-sm uppercase tracking-wider transition-colors duration-200 ${
+              className={`relative min-h-11 whitespace-nowrap pb-3 font-body text-sm uppercase tracking-wider transition-colors duration-200 sm:min-h-0 ${
                 activeTab === tab ? 'text-white' : 'text-[#6b7280] hover:text-white'
               }`}
             >

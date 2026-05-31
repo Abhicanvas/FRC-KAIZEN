@@ -19,7 +19,7 @@ const containerVariants = {
 export function RightColumn() {
   return (
     <div className="lg:pl-14">
-      <div className="mb-6 mt-14 text-right font-display text-xs tracking-[0.3em] text-red-600 uppercase lg:mt-0">
+      <div className="mb-6 mt-10 text-right font-display text-xs tracking-[0.3em] text-red-600 uppercase lg:mt-0">
         WHAT WE STAND FOR
       </div>
 
